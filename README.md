@@ -11,7 +11,7 @@ using Node.js [Addons](https://nodejs.org/api/addons.html). Deno does not suppor
 it's own `WebTransport` server and client implementations, exposed with `--unstable-net`
 flag. Deno's server implementation halts when echoing around 8 MB, and does not
 propagate `closeCode` and `reason` when closing the connection. Bun exits with 
-an `Napi::Error`, though still completes the request. Chromium and Firefox (with `network.http.speculative-parallel-limit` set to `0` in `about:config`, see https://bugzilla.mozilla.org/show_bug.cgi?id=1955877#c27) clients 
+an `Napi::Error`, though still completes the request. Chromium and Firefox (with `network.http.speculative-parallel-limit` set to `0` in `about:config`, see https://bugzilla.mozilla.org/show_bug.cgi?id=1955877#c27)
 browser clients both exit without errors.
 
 
