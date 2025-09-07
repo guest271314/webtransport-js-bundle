@@ -18,7 +18,7 @@ await $`rm ${pwd}/webtransport-client-bundle.js`;
 await $`echo ${clientBundle} > ${pwd}/webtransport-client-bundle.js`;
 const [{ hash: { digest } }] = await $`cat cert.json`.json();
 const clientScript = (await $`cat wt-client.js`.text()).replace(
-  /CERT_DIGEST.+;/,
+  /CERT_DIGEST.+(?=;)/,
   `CERT_DIGEST = new Uint8Array(${JSON.stringify(digest)});`,
 ).trim();
 await $`rm ${pwd}/wt-client.js`;
