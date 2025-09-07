@@ -58,7 +58,8 @@ The client sends 20 MB, and the server echoes 20 MB back to the client.
 
 ## TODO
 
-Compile the relevant `libquiche` dependencies to WASM, and port to JavaScript.
+- Compile the relevant `libquiche` dependencies to WASM, and port to JavaScript
+- Create a public WebTransport echo server using this source code
 
 # Licenses
 
