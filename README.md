@@ -34,7 +34,14 @@ node --no-warnings wt-server.js
 ```
 
 ```
-bun --no-warnings wt-server.js
+// Serves one response, exits with Napi::Error Invalid state: Controller is already closed Aborted
+bun --no-warnings wt-server.js 
+```
+
+```
+// Starts serving response, then exits with
+// Napi::Error this.socketInt.getSendQueueCount is not a function Aborted
+DENO_COMPAT=1 deno -A wt-server.js 
 ```
 
 ### Client
@@ -44,15 +51,19 @@ node wt-client.js
 ```
 
 ```
-bun wt.client.js // Exits with Napi::Error Invalid state: Controller is already closed Aborted
+// Exits with Napi::Error Invalid state: Controller is already closed Aborted
+bun wt.client.js 
 ```
 
 ```
-deno -A --unstable-net wt-client.js // Deno WebTransport client implementation, closeCode and reason not propagated 
+// Deno WebTransport client implementation, closeCode and reason not propagated
+deno -A --unstable-net wt-client.js 
 ```
 
+
 ```
-DENO_COMPAT=1 deno -A wt-client.js // Exits with Segmentation fault 
+ // Exits with Segmentation fault 
+DENO_COMPAT=1 deno -A wt-client.js
 ```
 
 The server and client code in this repository uses the Native Messaging 
