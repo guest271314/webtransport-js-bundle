@@ -7,7 +7,7 @@ Self-signed certificate generation uses [certificate.js](https://github.com/achi
 ## Details
 
 `@fails-components/webtransport` depends on [`libquiche`](https://github.com/google/quiche), which is written to `webtransport.node`
-using Node.js [Addons](https://nodejs.org/api/addons.html). Deno does not support running `.node` files. Deno does have
+using Node.js [Addons](https://nodejs.org/api/addons.html). Deno does have
 it's own `WebTransport` server and client implementations, exposed with `--unstable-net`
 flag. Deno's server implementation halts when echoing around 8 MB, and does not
 propagate `closeCode` and `reason` when closing the connection. Bun exits with 
@@ -44,11 +44,15 @@ node wt-client.js
 ```
 
 ```
-bun wt.client.js
+bun wt.client.js // Exits with Napi::Error Invalid state: Controller is already closed Aborted
 ```
 
 ```
-deno -A --unstable-net wt-client.js
+deno -A --unstable-net wt-client.js // Deno WebTransport client implementation, closeCode and reason not propagated 
+```
+
+```
+DENO_COMPAT=1 deno -A wt-client.js // Exits with Segmentation fault 
 ```
 
 The server and client code in this repository uses the Native Messaging 
