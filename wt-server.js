@@ -27,8 +27,6 @@ while (true) {
     let incomingCurrentLength = 0;
     const buffer = new ArrayBuffer(0, { maxByteLength: 4 });
     const view = new DataView(buffer);
-    const encoder = new TextEncoder();
-    const decoder = new TextDecoder();
     for await (
       const { readable, writable } of session.incomingBidirectionalStreams
     ) {
@@ -45,11 +43,10 @@ while (true) {
               console.log(value.length, incomingTotalLength);
               value = value.subarray(4);
             }
-            const encoded = encoder.encode(decoder.decode(value).toUpperCase());
             await writer.ready;
-            await writer.write(encoded);
+            await writer.write(value);
             await writer.ready;
-            incomingCurrentLength += encoded.length;
+            incomingCurrentLength += value.length;
             console.log(
               `Done writing ${encoded.length} bytes to writable, ${incomingCurrentLength} of ${incomingTotalLength} bytes written.`,
             );
