@@ -35,7 +35,6 @@
     ));
     let view = new DataView(header.buffer);
     let outgoingTotalLength = view.getUint32(0, true);
-    // outgoingTotalLength.set(header, 0);
     console.log({ outgoingTotalLength });
     let incomingTotalLength = 0;
     const writer = writable.getWriter();
