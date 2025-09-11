@@ -7,12 +7,11 @@ Self-signed certificate generation uses [certificate.js](https://github.com/achi
 ## Details
 
 `@fails-components/webtransport` depends on [`libquiche`](https://github.com/google/quiche), which is written to `webtransport.node`
-using Node.js [Addons](https://nodejs.org/api/addons.html). Deno does have
-it's own `WebTransport` server and client implementations, exposed with `--unstable-net`
-flag. Deno's server implementation halts when echoing around 8 MB, and does not
-propagate `closeCode` and `reason` when closing the connection. Bun exits with 
-an `Napi::Error`, though still completes the request. Chromium and Firefox (with `network.http.speculative-parallel-limit` set to `0` in `about:config`, see https://bugzilla.mozilla.org/show_bug.cgi?id=1955877#c27)
-browser clients both exit without errors.
+using Node.js [Addons](https://nodejs.org/api/addons.html). 
+
+Server tested using `node`, `bun`, `deno`. Clients tested using `node`, `bun`, `deno`, `chrome`, `firefox`. `deno` client completes sending and getting data back from server, then exits with `Segmentation fault`. 
+
+For testing with Firefox client set `network.http.speculative-parallel-limit` set to `0` in `about:config`, see https://bugzilla.mozilla.org/show_bug.cgi?id=1955877#c27.
 
 
 ## Usage
@@ -30,17 +29,14 @@ deleted.
 ### Server
 
 ```
-node --no-warnings wt-server.js
+node wt-server.js
 ```
 
 ```
-// Serves one response, exits with Napi::Error Invalid state: Controller is already closed Aborted
-bun --no-warnings wt-server.js 
+bun wt-server.js 
 ```
 
 ```
-// Starts serving response, then exits with
-// Napi::Error this.socketInt.getSendQueueCount is not a function Aborted
 DENO_COMPAT=1 deno -A wt-server.js 
 ```
 
@@ -51,19 +47,11 @@ node wt-client.js
 ```
 
 ```
-// Exits with Napi::Error Invalid state: Controller is already closed Aborted
 bun wt.client.js 
 ```
 
 ```
-// Deno WebTransport client implementation, closeCode and reason not propagated
-deno -A --unstable-net wt-client.js 
-```
-
-
-```
- // Exits with Segmentation fault 
-DENO_COMPAT=1 deno -A wt-client.js
+DENO_COMPAT=1 deno -A wt-client.js 
 ```
 
 The server and client code in this repository uses the Native Messaging 
