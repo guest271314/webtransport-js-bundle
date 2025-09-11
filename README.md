@@ -1,7 +1,7 @@
 # webtransport-js-bundle
 
 [@fails-components/webtransport](https://github.com/fails-components/webtransport)
-server and client bundled with Bun. Based on [achingbrain/webtransport-echo-server](https://github.com/achingbrain/webtransport-echo-server).
+server and client, modified to support Node.js, Deno, and Bun, bundled. Based on [achingbrain/webtransport-echo-server](https://github.com/achingbrain/webtransport-echo-server).
 Self-signed certificate generation uses [certificate.js](https://github.com/achingbrain/webtransport-echo-server/blob/main/certificate.js).
 
 ## Details
