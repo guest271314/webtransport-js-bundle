@@ -1,3 +1,8 @@
+/*
+  node wt-server.js
+  bun wt-server.js
+  DENO_COMPAT=1 deno -A wt-server.js
+*/
 import { Http3Server } from "./webtransport-server-bundle.js";
 import certificates from "./cert.json" with { type: "json" };
 const server = new Http3Server({
