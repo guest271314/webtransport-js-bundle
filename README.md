@@ -54,6 +54,28 @@ bun wt.client.js
 DENO_COMPAT=1 deno -A wt-client.js 
 ```
 
+For Firefox headless Create profile, set preferences for created profile
+```
+$HOME/firefox/firefox-bin -CreateProfile wt
+
+printf "user_pref('network.http.speculative-parallel-limit', 0);\n\
+user_pref('devtools.console.stdout.content', true);\n\
+user_pref('dom.allow_scripts_to_close_windows', true);" > "$HOME/.mozilla/firefox/$(ls $HOME/.mozilla/firefox | grep '\.wt')/user.js"
+```
+
+then launch `firefox` with URL `wt-client.html`
+
+```
+$HOME/firefox/firefox-bin -headless -P wt wt-client.html | grep WEBTRANSPORT_CLIENT
+```
+
+For Chromium headless
+
+```
+~/chrome-linux/chrome --headless --enable-logging=stderr --disable-gpu --password-store=basic wt-client.html 2>&1 | grep WEBTRANSPORT_CLIENT
+```
+
+
 The server and client code in this repository uses the Native Messaging 
 protocol to keep track of the length of the messages sent and received both ways.
 
