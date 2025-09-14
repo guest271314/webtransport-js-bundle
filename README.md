@@ -54,25 +54,21 @@ bun wt.client.js
 DENO_COMPAT=1 deno -A wt-client.js 
 ```
 
-For Firefox headless Create profile, set preferences for created profile
+For Firefox headless Create profile
 ```
 $HOME/firefox/firefox-bin -CreateProfile wt
-
-printf "user_pref('network.http.speculative-parallel-limit', 0);\n\
-user_pref('devtools.console.stdout.content', true);\n\
-user_pref('dom.allow_scripts_to_close_windows', true);" > "$HOME/.mozilla/firefox/$(ls $HOME/.mozilla/firefox | grep '\.wt')/user.js"
 ```
 
-then launch `firefox` with URL `wt-client.html`
+then launch `firefox` with URL `wt-client.html`, pipe through `node` to close `firefox` when done
 
 ```
-$HOME/firefox/firefox-bin -headless -P wt wt-client.html | grep WEBTRANSPORT_CLIENT
+$HOME/firefox/firefox-bin -headless -P wt wt-client.html 2>&1 | node -e '(async()=>{const decoder=new TextDecoder;for await (const data of process.stdin){const result=decoder.decode(data).match(/WEBTRANSPORT_CLIENT.+(?=\n)/);if(result){console.log(result[0]);if(result[0].includes("closeCode")){require("child_process").exec("pkill -f \"firefox-bin -headless\"");process.exit();}}}})()'
 ```
 
 For Chromium headless
 
 ```
-~/chrome-linux/chrome --headless --enable-logging=stderr --disable-gpu --password-store=basic wt-client.html 2>&1 | grep WEBTRANSPORT_CLIENT
+$HOME/chrome-linux/chrome --headless --enable-logging=stderr --disable-gpu --password-store=basic wt-client.html 2>&1 | grep WEBTRANSPORT_CLIENT
 ```
 
 
