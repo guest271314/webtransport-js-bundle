@@ -1,5 +1,5 @@
 /*
-  ~/firefox/firefox-bin -headless -P wt wt-client.html | grep WEBTRANSPORT_CLIENT
+  ~/firefox/firefox-bin -headless -P wt wt-client.html 2>&1 | node -e '(async()=>{const decoder=new TextDecoder;for await (const data of process.stdin){const result=decoder.decode(data).match(/console.log:.+(?=\n)/);if(result){console.log(result[0]);if(result[0].includes("closeCode")){require("child_process").exec("pkill -f \"firefox-bin -headless\"");process.exit();}}}})()'
   ~/chrome-linux/chrome --headless --enable-logging=stderr --disable-gpu --password-store=basic wt-client.html 2>&1 | grep WEBTRANSPORT_CLIENT
   node --no-warnings wt-client.js
   bun --no-warnings wt-client.js
@@ -84,7 +84,5 @@
   }
 })()
   .catch((e) => {
-    console.log(`${WT_CLIENT}${e.message}`);
-  })
-  .then(() => console.log(`${WT_CLIENT}${navigator.userAgent} closing.`))
-  .finally(() => globalThis?.window?.close());
+    console.log(`${WT_CLIENT}${e.message} "closeCode":0`);
+  });
