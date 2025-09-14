@@ -39,7 +39,6 @@ const clientScript = (await $`cat wt-client.js`.text()).replace(
   /CERT_DIGEST.+(?=;)/,
   `CERT_DIGEST = new Uint8Array(${JSON.stringify(digest)})`,
 ).trim();
-await $`rm ${pwd}/wt-client.js ${pwd}/wt-client.html`;
 await $`echo ${clientScript} > ${pwd}/wt-client.js`;
 await $`printf '<script type="module">\n${clientScript}\n</script>' > ${pwd}/wt-client.html`;
 await $`bun pm cache rm`.nothrow().quiet();
