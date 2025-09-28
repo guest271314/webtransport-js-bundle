@@ -51,7 +51,7 @@ bun wt.client.js
 ```
 
 ```
-DENO_COMPAT=1 deno -A wt-client.js 
+NODE_OPTIONS=--no-warnings DENO_COMPAT=1 deno -A wt-client.js
 ```
 
 For Firefox headless Create profile
