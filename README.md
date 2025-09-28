@@ -54,7 +54,7 @@ bun wt.client.js
 NODE_OPTIONS=--no-warnings DENO_COMPAT=1 deno -A wt-client.js
 ```
 
-For Firefox headless Create profile
+For Firefox headless, create profile
 ```
 $HOME/firefox/firefox-bin -CreateProfile wt
 ```
@@ -77,6 +77,19 @@ For Chromium headless
 $HOME/chrome-linux/chrome --headless --enable-logging=stderr --disable-gpu --password-store=basic wt-client.html 2>&1 | grep WEBTRANSPORT_CLIENT
 ```
 
+For V8 Inspector Protocol
+
+```
+NODE_OPTIONS=--no-warnings DENO_COMPAT=1 deno -A --inspect-wait wt-client.js
+```
+
+```
+node --no-warnings --inspect-wait wt-client.js
+```
+
+navigate to `chrome://inspect` and click "inspect".
+
+For Bun
 
 The server and client code in this repository uses the Native Messaging 
 protocol to keep track of the length of the messages sent and received both ways.
