@@ -22,6 +22,10 @@ For testing with Firefox client set `network.http.speculative-parallel-limit` se
 bun bundle-webtransport.js
 ```
 
+```
+deno -A deno-bundle-webtransport.js
+```
+
 After fetching dependencies and bundling `webtransport-server-bundle.js`
 and `webtransport-client-bundle.js` to standalone scripts the created `node_modules` folder is
 deleted.
@@ -37,7 +41,7 @@ bun wt-server.js
 ```
 
 ```
-DENO_COMPAT=1 deno -A wt-server.js 
+deno -A wt-server.js 
 ```
 
 ### Client
@@ -51,7 +55,7 @@ bun wt.client.js
 ```
 
 ```
-NODE_OPTIONS=--no-warnings DENO_COMPAT=1 deno -A wt-client.js
+deno -A wt-client.js
 ```
 
 For Firefox headless, create profile
