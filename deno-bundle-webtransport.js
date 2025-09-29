@@ -1,5 +1,4 @@
 import $ from "jsr:@david/dax";
-
 await $`deno clean`;
 await $`rm -rf node_modules deno.json deno.lock`;
 await $`deno install npm:@fails-components/webtransport-transport-http3-quiche \
