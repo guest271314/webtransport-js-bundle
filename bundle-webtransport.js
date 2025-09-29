@@ -14,14 +14,6 @@ for (const [file, url] of Object.entries(patches)) {
   console.log(`Fetching patch ${url} for ${file}\n`);
   await $`echo ${await (await fetch(url)).text()} > ${file}`;
 }
-const index =
-  (await $`cat ./node_modules/@fails-components/webtransport/lib/index.node.js`
-    .text())
-    .replace(
-      "export { HttpServer, Http3Server, Http2Server }",
-      "export { Http3Server }",
-    );
-await $`echo ${index} > ./node_modules/@fails-components/webtransport/lib/index.node.js`;
 await $`bun build export-webtransport-server.js --target=node --outfile=${pwd}/webtransport-server-bundle.js`;
 await $`bun build export-webtransport-client.js --target=node --outfile=${pwd}/webtransport-client-bundle.js`;
 await $`cat ${pwd}/node_modules/@fails-components/webtransport-transport-http3-quiche/build/Release/webtransport.node > ${pwd}/webtransport.node`;
