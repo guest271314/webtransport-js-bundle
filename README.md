@@ -93,8 +93,6 @@ node --no-warnings --inspect-wait wt-client.js
 
 navigate to `chrome://inspect` and click "inspect".
 
-For Bun
-
 The server and client code in this repository uses the Native Messaging 
 protocol to keep track of the length of the messages sent and received both ways.
 
