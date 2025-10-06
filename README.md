@@ -69,10 +69,10 @@ set preference to print `console.log()` calls to `STDOUT`
 printf "user_pref('devtools.console.stdout.content', true);\n" > "$HOME/.mozilla/firefox/$(ls $HOME/.mozilla/firefox | grep '\.wt')/user.js"
 ```
 
-then launch `firefox` with URL `wt-client.html`, pipe through `node` to close `firefox` when done
+then launch `firefox` with URL `wt-client.html`, match `WEBTRANSPORT_CLIENT` output
 
 ```
-$HOME/firefox/firefox-bin -headless -P wt wt-client.html | grep WEBTRANSPORT_CLIENT:
+$HOME/firefox/firefox-bin -headless -P wt wt-client.html | grep WEBTRANSPORT_CLIENT
 ```
 
 For Chromium headless
