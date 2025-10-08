@@ -37,7 +37,7 @@ node: ../deps/v8/third_party/abseil-cpp/absl/container/internal/raw_hash_set.h:4
 Aborted
 ```
 
-rebuild the `webtransport.node` and move to this directory
+rebuild the `webtransport.node` and move the file to the local `webtransport-js-bundle` repository
 
 ```
 cd ..
