@@ -86,4 +86,4 @@
   .catch((e) => {
     console.log(`${WT_CLIENT}${e.message} "closeCode":0`);
   })
-  .finally(() => navigator.userAgent.includes("Headless") && globalThis?.window?.close());
+  .finally(() => /Headless|Deno/.test(navigator.userAgent) && globalThis?.process?.exit() || globalThis?.close());
