@@ -30,6 +30,32 @@ After fetching dependencies and bundling `webtransport-server-bundle.js`
 and `webtransport-client-bundle.js` to standalone scripts the created `node_modules` folder is
 deleted.
 
+If `node` `v25.0.0-nightly2025100532851f31c2` or greater version throws an error 
+ for running `webtransport.node`
+```
+node: ../deps/v8/third_party/abseil-cpp/absl/container/internal/raw_hash_set.h:456: absl::container_internal::PerTableSeed::PerTableSeed(uint16_t): Assertion `((seed & kSignBit) != 0 || seed == 0) && "Try enabling sanitizers."' failed.
+Aborted
+```
+
+rebuild the `webtransport.node` and move to this directory
+
+```
+cd ..
+sudo apt install clang cmake build-essential perl6 golang ninja-build
+git clone --recurse-submodules https://github.com/fails-components/webtransport.git
+cd webtransport
+CMAKEJS_PATH="$PWD/node_modules/.bin"
+cd transports/http3-quiche
+bun install
+export PATH="$CMAKEJS_PATH:$PATH"
+npm_config_yes=true bun x playwright install-deps
+node build.js build
+mv build_linux_x64/Release/webtransport.node webtransport-js-bundle
+bun pm cache rm
+cd ../..
+rm -rf webtransport
+```
+
 ### Server
 
 ```
