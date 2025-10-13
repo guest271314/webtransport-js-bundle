@@ -52,9 +52,9 @@ while (true) {
             await writer.write(value);
             await writer.ready;
             incomingCurrentLength += value.length;
-            console.log(
-              `Done writing ${encoded.length} bytes to writable, ${incomingCurrentLength} of ${incomingTotalLength} bytes written.`,
-            );
+            // console.log(
+            //  `Done writing ${value.length} bytes to writable, ${incomingCurrentLength} of ${incomingTotalLength} bytes written.`,
+            // );
           },
           close() {
             console.log("WebTransport readable closed");
