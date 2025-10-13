@@ -41,7 +41,6 @@ rebuild the `webtransport.node` and move the file to the local `webtransport-js-
 
 ```
 cd ..
-sudo apt install clang cmake build-essential perl6 golang ninja-build
 git clone --recurse-submodules https://github.com/fails-components/webtransport.git
 cd webtransport
 CMAKEJS_PATH="$PWD/node_modules/.bin"
