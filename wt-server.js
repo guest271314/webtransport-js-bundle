@@ -61,11 +61,11 @@ while (true) {
           },
         }),
       ).then(() => console.log("WebTransport writable closed")).catch((e) => console.log(e));
+      await writer.close();
+      await writer.closed;
       buffer.resize(0);
       incomingTotalLength = 0;
       incomingCurrentLength = 0;
-      await writer.close();
-      await writer.closed;
       console.log(`Stream ${streams++}`);
     }
   await session.closed.then(() => console.log("Session done"))
